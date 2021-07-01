@@ -1,24 +1,46 @@
-import logo from './logo.svg';
-import './App.css';
+import Header from "./Header";
+import Main from "./Main";
+import Footer from "./Footer";
+import Form from "./Form";
+import Clock from "./Clock";
+import Container from "./Container";
+import { theme } from "./theme";
+import { ThemeProvider } from "styled-components";
 
 function App() {
+
+  const currencies = [
+    {
+      id: 1,
+      name: "EUR",
+      value: 4.47,
+      result: 0,
+    },
+    {
+      id: 2,
+      name: "USD",
+      value: 3.68,
+      result: 0,
+    },
+    {
+      id: 3,
+      name: "CHF",
+      value: 4.11,
+      result: 0,
+    },
+  ];
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <ThemeProvider theme={theme}>
+      <Container>
+        <Header headerContent="Suchy kantor" />
+        <Clock />
+        <Main>
+          <Form currencies={currencies} />
+        </Main>
+        <Footer footerContent="Copyright &copy; Paweł Suchy 2021" />
+      </Container>
+    </ThemeProvider>
   );
 }
 
