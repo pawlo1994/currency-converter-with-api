@@ -25,7 +25,7 @@ export const StyledSpan = styled.span`
     padding: 5px;
 
     ${({ currencyRate }) => currencyRate && css`
-        background-color: ${({ theme }) => theme.mainColor};
+        background-color: ${({ theme }) => theme.color.mineShaft};
         color: #fff;
         margin-bottom: 10px;
     `};

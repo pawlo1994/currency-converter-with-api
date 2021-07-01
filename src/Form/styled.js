@@ -42,7 +42,7 @@ export const StyledButton = styled.button`
     width: 100px;
     padding: 10px;
     margin: 10px auto;
-    background-color: ${({ theme }) => theme.mainColor};
+    background-color: ${({ theme }) => theme.color.mineShaft};
     color: #fff;
     border: none;
     border-radius: 10px;
