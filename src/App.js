@@ -33,7 +33,7 @@ function App() {
   return (
     <ThemeProvider theme={theme}>
       <Container>
-        <Header headerContent="Suchy kantor" />
+        <Header headerContent="suchy kantor" />
         <Clock />
         <Main>
           <Form currencies={currencies} />
