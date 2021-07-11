@@ -2,7 +2,7 @@ import styled, { css } from "styled-components";
 
 export const StyledList = styled.ul`
     padding: 20px;
-    background-color: rgba(221, 221, 221, 0.507);
+    background-color: rgb(240, 240, 240);
     border-radius: 10px;
     box-shadow: 0 0 2px 2px #999;
     list-style-type: none;
@@ -15,11 +15,12 @@ export const StyledList = styled.ul`
 
 export const StyledItem = styled.li`
     font-size: 24px;
+    margin-bottom: 30px;
 `;
 
 export const StyledSpan = styled.span`
     display: inline-block;
-    background-color: rgba(204, 204, 204, 0.5);
+    background-color: rgb(221, 221, 221);
     text-align: center;
     width: 100%;
     padding: 5px;

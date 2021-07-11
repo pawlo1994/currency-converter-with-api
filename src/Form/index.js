@@ -1,19 +1,18 @@
 import { StyledForm, StyledLabel, StyledInput, StyledField, StyledButton, StyledHeader } from "./styled";
 import { useState } from "react";
-import List from "../List";
+import List from "./List";
 
 const Form = ({ currencies }) => {
-    let results;
+    const initialValue = 0;
+    const [plnValue, setPlnValue] = useState(initialValue.toFixed(2));
     const [userValue, setUserValue] = useState("");
-    const [plnValue, setPlnValue] = useState("");
-
+    const [currencyValue, setCurrencyValue] = useState(currencies[0].value);
+    const [currencyName, setCurrencyName] = useState(currencies[0].name);
+    const [result, setResult] = useState(initialValue.toFixed(2));
     const onFormSubmit = event => {
-        event.preventDefault();
-        results = currencies.map(({ result, value }) => result = (userValue / value).toFixed(2));
-        for (let i = 0; i <= 2; i++) {
-            currencies[i].result = results[i];
-        };
         setPlnValue((+userValue).toFixed(2));
+        event.preventDefault();
+        setResult((userValue / currencyValue).toFixed(2));
         setUserValue("");
     };
 
@@ -37,13 +36,38 @@ const Form = ({ currencies }) => {
                         max="9999999999"
                         required
                     />
+                    <StyledLabel htmlFor="currency">Waluta:</StyledLabel>
+                    <StyledInput
+                        as="select"
+                        onChange={
+                            ({ target }) => {
+                                setCurrencyValue(target.value);
+                                setPlnValue((+userValue).toFixed(2));
+                                setResult((+userValue).toFixed(2));
+                            }
+                        }
+                    >
+                        {currencies.map(({ name, value, id }) => {
+                            return (
+                                <option
+                                    value={value}
+                                    key={id}
+                                >
+                                    {name}
+                                </option>
+                            )
+                        }
+                        )};
+                    </StyledInput>
                 </StyledField>
                 <StyledButton>Przelicz</StyledButton>
             </StyledForm>
             <List
-                currencies={currencies}
-                results={results}
+                userValue={userValue}
                 plnValue={plnValue}
+                currencyValue={currencyValue}
+                currencyName={currencyName}
+                result={result}
             />
         </>
     );
