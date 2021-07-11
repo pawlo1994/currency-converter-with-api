@@ -1,19 +1,26 @@
 import { StyledForm, StyledLabel, StyledInput, StyledField, StyledButton, StyledHeader } from "./styled";
-import { useState } from "react";
+import { useState, useRef } from "react";
 import List from "./List";
 
 const Form = ({ currencies }) => {
     const initialValue = 0;
+    const inputRef = useRef(null);
+
     const [plnValue, setPlnValue] = useState(initialValue.toFixed(2));
     const [userValue, setUserValue] = useState("");
     const [currencyValue, setCurrencyValue] = useState(currencies[0].value);
-    const [currencyName, setCurrencyName] = useState(currencies[0].name);
-    const [result, setResult] = useState(initialValue.toFixed(2));
+
+    const currencyNameIndex = currencies.findIndex(({ value }) => value === +currencyValue);
+    const currencyName = currencies[currencyNameIndex].name;
+
+    const [result, setResult] = useState(plnValue);
+
     const onFormSubmit = event => {
-        setPlnValue((+userValue).toFixed(2));
         event.preventDefault();
+        setPlnValue((+userValue).toFixed(2));
         setResult((userValue / currencyValue).toFixed(2));
         setUserValue("");
+        inputRef.current.focus();
     };
 
     return (
@@ -34,6 +41,7 @@ const Form = ({ currencies }) => {
                         step="0.01"
                         min="0.05"
                         max="9999999999"
+                        ref={inputRef}
                         required
                     />
                     <StyledLabel htmlFor="currency">Waluta:</StyledLabel>
@@ -42,8 +50,8 @@ const Form = ({ currencies }) => {
                         onChange={
                             ({ target }) => {
                                 setCurrencyValue(target.value);
-                                setPlnValue((+userValue).toFixed(2));
-                                setResult((+userValue).toFixed(2));
+                                setPlnValue(initialValue.toFixed(2));
+                                setResult(initialValue.toFixed(2));
                             }
                         }
                     >
