@@ -14,7 +14,7 @@ export const StyledForm = styled.form`
 
 export const StyledLabel = styled.label`
     display: inline-block;
-    width: 20%;
+    width: 30%;
     margin: 10px 5px;
     text-align: right;
 `;

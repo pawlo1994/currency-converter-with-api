@@ -2,7 +2,25 @@ import { StyledForm, StyledLabel, StyledInput, StyledField, StyledButton, Styled
 import { useState } from "react";
 import List from "./List";
 
+let selectString;
+fetch("https://api.exchangerate.host/latest?base=PLN")
+    .then(response => response.json())
+    .then(console.log("Pobieranie danych..."))
+    .then(currency => {
+        setTimeout(() => {
+            console.log(`Waluta bazowa: ${currency.base}`);
+            console.log(`Data aktualizacji: ${currency.date}`);
+            for (const [key, value] of (Object.entries(currency.rates))) {
+                console.log(`${(value).toFixed(2)} ${key}`);
+                selectString += `<option value=${value}>${key}</option>`;
+            }
+        }, 1000);
+    }
+    )
+    .catch(error => console.error("Nie udało się pobrać danych...", error));
+
 const Form = ({ currencies }) => {
+
     const initialValue = 0;
 
     const [plnValue, setPlnValue] = useState(initialValue.toFixed(2));
@@ -52,17 +70,15 @@ const Form = ({ currencies }) => {
                             }
                         }
                     >
-                        {currencies.map(({ name, value, id }) => {
+                        {(currencies.map(({ name, value, id }) => {
                             return (
                                 <option
-                                    value={value}
                                     key={id}
-                                >
+                                    value={value}>
                                     {name}
                                 </option>
                             )
-                        }
-                        )};
+                        }))}
                     </StyledInput>
                 </StyledField>
                 <StyledButton>Przelicz</StyledButton>
