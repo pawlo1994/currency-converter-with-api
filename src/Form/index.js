@@ -1,10 +1,9 @@
 import { StyledForm, StyledLabel, StyledInput, StyledField, StyledButton, StyledHeader } from "./styled";
-import { useState, useRef } from "react";
+import { useState } from "react";
 import List from "./List";
 
 const Form = ({ currencies }) => {
     const initialValue = 0;
-    const inputRef = useRef(null);
 
     const [plnValue, setPlnValue] = useState(initialValue.toFixed(2));
     const [userValue, setUserValue] = useState("");
@@ -20,7 +19,6 @@ const Form = ({ currencies }) => {
         setPlnValue((+userValue).toFixed(2));
         setResult((userValue / currencyValue).toFixed(2));
         setUserValue("");
-        inputRef.current.focus();
     };
 
     return (
@@ -41,7 +39,6 @@ const Form = ({ currencies }) => {
                         step="0.01"
                         min="0.05"
                         max="9999999999"
-                        ref={inputRef}
                         required
                     />
                     <StyledLabel htmlFor="currency">Waluta:</StyledLabel>
