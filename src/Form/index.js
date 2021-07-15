@@ -2,7 +2,6 @@ import { StyledForm, StyledLabel, StyledInput, StyledField, StyledButton, Styled
 import { useState } from "react";
 import List from "./List";
 
-let selectString;
 fetch("https://api.exchangerate.host/latest?base=PLN")
     .then(response => response.json())
     .then(console.log("Pobieranie danych..."))
@@ -12,7 +11,6 @@ fetch("https://api.exchangerate.host/latest?base=PLN")
             console.log(`Data aktualizacji: ${currency.date}`);
             for (const [key, value] of (Object.entries(currency.rates))) {
                 console.log(`${(value).toFixed(2)} ${key}`);
-                selectString += `<option value=${value}>${key}</option>`;
             }
         }, 1000);
     }
