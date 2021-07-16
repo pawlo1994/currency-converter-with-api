@@ -2,7 +2,7 @@ import { StyledForm, StyledLabel, StyledInput, StyledField, StyledButton, Styled
 import { useEffect, useState } from "react";
 import List from "./List";
 
-const Form = ({ currencies }) => {
+const Form = () => {
     const [updateDate, setUpdateDate] = useState("");
     const [sourceValue, setSourceValue] = useState("");
     const [rates, setRates] = useState([]);
@@ -10,7 +10,6 @@ const Form = ({ currencies }) => {
     useEffect(() => {
         fetch("https://api.exchangerate.host/latest?base=PLN")
             .then(response => response.json())
-            .then(console.log("Pobieranie danych..."))
             .then(currency => {
                 setTimeout(() => {
                     setRates(Object.keys(currency.rates));
@@ -20,30 +19,51 @@ const Form = ({ currencies }) => {
                 }, 1000);
             }
             )
-            .catch(error => console.error("Nie udało się pobrać danych...", error))
+            .catch(error => {
+                console.error("Nie udało się pobrać danych...", error)
+            })
     }, []);
 
 
     const [plnValue, setPlnValue] = useState("");
     const [userValue, setUserValue] = useState("");
-    const [currencyValue, setCurrencyValue] = useState(values[0]);
+    const [currencyValue, setCurrencyValue] = useState(rates[0]);
 
-    const currencyNameIndex = rates.findIndex(({ value }) => value === +currencyValue);
-    const currencyName = rates[currencyNameIndex];
+    const currencyName = rates.find(rate => rate === currencyValue);
+    const currencyNameIndex = rates.findIndex(name => name === currencyName);
+    const rate = values[currencyNameIndex];
 
-    const [result, setResult] = useState("");
+    const [result, setResult] = useState(
+        {
+            value: userValue * rate,
+            currencyName
+        }
+    );
 
-    const calculateResult = () => {
-        const currency = rates.find(({ name }) => name === currencyName).value;
-        setResult(userValue / rate);
+    const calculateResult = (currencyName, rate) => {
+        setResult(
+            {
+                value: userValue * rate,
+                currencyName
+            }
+        );
     };
 
     const onFormSubmit = event => {
         event.preventDefault();
         setPlnValue((+userValue).toFixed(2));
-        calculateResult();
+        calculateResult(currencyName, rate);
         setUserValue("");
     };
+
+    try {
+        if (!updateDate) {
+            throw "Nie udało się pobrać danych z serwera. Spróbuj ponownie później";
+        }
+    }
+    catch (error) {
+        return (<StyledHeader>Pobieranie danych z serwera. Proszę czekać...</StyledHeader>)
+    }
 
     return (
         <>
@@ -71,8 +91,6 @@ const Form = ({ currencies }) => {
                         onChange={
                             ({ target }) => {
                                 setCurrencyValue(target.value);
-                                setPlnValue("");
-                                setResult("");
                             }
                         }
                     >
@@ -92,9 +110,7 @@ const Form = ({ currencies }) => {
             <List
                 plnValue={plnValue}
                 sourceValue={sourceValue}
-                currencyNameIndex={currencyNameIndex}
                 result={result}
-                rates={rates}
                 updateDate={updateDate}
             />
         </>
