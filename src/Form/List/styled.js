@@ -1,6 +1,6 @@
-import styled, { css } from "styled-components";
+import styled from "styled-components";
 
-export const StyledList = styled.ul`
+export const StyledList = styled.section`
     padding: 20px;
     background-color: rgb(240, 240, 240);
     border-radius: 10px;
@@ -13,21 +13,11 @@ export const StyledList = styled.ul`
     }
 `;
 
-export const StyledItem = styled.li`
-    font-size: 24px;
-    margin-bottom: 30px;
+export const StyledHeader = styled.h2`
+    text-align: center;
 `;
 
-export const StyledSpan = styled.span`
-    display: inline-block;
-    background-color: rgb(221, 221, 221);
+export const StyledParagraph = styled.p`
     text-align: center;
-    width: 100%;
-    padding: 5px;
-
-    ${({ currencyRate }) => currencyRate && css`
-        background-color: ${({ theme }) => theme.color.mineShaft};
-        color: #fff;
-        margin-bottom: 10px;
-    `};
+    font-size: 20px;
 `;

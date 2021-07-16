@@ -1,19 +1,13 @@
-import { StyledList, StyledItem, StyledSpan } from "./styled";
+import { StyledHeader, StyledList, StyledParagraph } from "./styled";
 
-const List = ({ plnValue, rates, result, currencyNameIndex, updateDate, sourceValue }) => {
+const List = ({ plnValue, result, updateDate, sourceValue }) => {
     return (
-        <>
-            <p>Data aktualizacji: {updateDate}</p>
-            <StyledList>
-                <StyledItem key="1">{sourceValue}:
-                    <StyledSpan>Wartość: {(+plnValue).toFixed(2)} {sourceValue}</StyledSpan>
-                </StyledItem>
-                <StyledItem key="2">
-                    {rates[currencyNameIndex]}:
-                    <StyledSpan>Wartość: {(+result).toFixed(2)} {rates[currencyNameIndex]}</StyledSpan>
-                </StyledItem>
-            </StyledList>
-        </>
+        <StyledList>
+            <StyledHeader>Data aktualizacji: {updateDate}</StyledHeader>
+            <StyledParagraph>
+                {(+plnValue).toFixed(2)} {sourceValue} = {(+result.value).toFixed(2)} {result.currencyName}
+            </StyledParagraph>
+        </StyledList>
     );
 };
 
