@@ -1,17 +1,19 @@
 import { StyledList, StyledItem, StyledSpan } from "./styled";
 
-const List = ({ currencyValue, plnValue, currencyName, result }) => {
+const List = ({ plnValue, rates, result, currencyNameIndex, updateDate, sourceValue }) => {
     return (
-        <StyledList>
-            <StyledItem key="1">PLN:
-                <StyledSpan>Wartość: {plnValue} PLN</StyledSpan>
-            </StyledItem>
-            <StyledItem key="2">
-                {currencyName}:
-                <StyledSpan currencyRate>Kurs: {currencyValue} PLN</StyledSpan>
-                <StyledSpan>Wartość: {result} {currencyName}</StyledSpan>
-            </StyledItem>
-        </StyledList>
+        <>
+            <p>Data aktualizacji: {updateDate}</p>
+            <StyledList>
+                <StyledItem key="1">{sourceValue}:
+                    <StyledSpan>Wartość: {(+plnValue).toFixed(2)} {sourceValue}</StyledSpan>
+                </StyledItem>
+                <StyledItem key="2">
+                    {rates[currencyNameIndex]}:
+                    <StyledSpan>Wartość: {(+result).toFixed(2)} {rates[currencyNameIndex]}</StyledSpan>
+                </StyledItem>
+            </StyledList>
+        </>
     );
 };
 
