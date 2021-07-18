@@ -4,7 +4,6 @@ import List from "./List";
 
 const Form = () => {
     const [updateDate, setUpdateDate] = useState("");
-    const [sourceValue, setSourceValue] = useState("");
     const [names, setNames] = useState([]);
     const [values, setValues] = useState([]);
     const [plnValue, setPlnValue] = useState("");
@@ -40,7 +39,6 @@ const Form = () => {
                     setNames(Object.keys(currency.rates));
                     setValues(Object.values(currency.rates));
                     setUpdateDate(currency.date);
-                    setSourceValue(currency.base);
                 }, 1000);
             }
             )
@@ -96,7 +94,6 @@ const Form = () => {
             </StyledForm>
             <List
                 plnValue={plnValue}
-                sourceValue={sourceValue}
                 result={result}
                 updateDate={updateDate}
             />
