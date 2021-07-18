@@ -5,40 +5,16 @@ import List from "./List";
 const Form = () => {
     const [updateDate, setUpdateDate] = useState("");
     const [sourceValue, setSourceValue] = useState("");
-    const [rates, setRates] = useState([]);
+    const [names, setNames] = useState([]);
     const [values, setValues] = useState([]);
-    useEffect(() => {
-        fetch("https://api.exchangerate.host/latest?base=PLN")
-            .then(response => response.json())
-            .then(currency => {
-                setTimeout(() => {
-                    setRates(Object.keys(currency.rates));
-                    setValues(Object.values(currency.rates));
-                    setUpdateDate(currency.date);
-                    setSourceValue(currency.base);
-                }, 1000);
-            }
-            )
-            .catch(error => {
-                console.error("Nie udało się pobrać danych...", error)
-            })
-    }, []);
-
-
     const [plnValue, setPlnValue] = useState("");
     const [userValue, setUserValue] = useState("");
-    const [currencyValue, setCurrencyValue] = useState(rates[0]);
+    const [currencyName, setCurrencyName] = useState(names[0]);
 
-    const currencyName = rates.find(rate => rate === currencyValue);
-    const currencyNameIndex = rates.findIndex(name => name === currencyName);
+    const currencyNameIndex = names.findIndex(name => name === currencyName);
     const rate = values[currencyNameIndex];
 
-    const [result, setResult] = useState(
-        {
-            value: userValue * rate,
-            currencyName
-        }
-    );
+    const [result, setResult] = useState("");
 
     const calculateResult = (currencyName, rate) => {
         setResult(
@@ -56,15 +32,26 @@ const Form = () => {
         setUserValue("");
     };
 
-    try {
-        if (!updateDate) {
-            throw "Nie udało się pobrać danych z serwera. Spróbuj ponownie później";
-        }
-    }
-    catch (error) {
-        return (<StyledHeader>Pobieranie danych z serwera. Proszę czekać...</StyledHeader>)
-    }
+    useEffect(() => {
+        fetch("https://api.exchangerate.host/latest?base=PLN")
+            .then(response => response.json())
+            .then(currency => {
+                setTimeout(() => {
+                    setNames(Object.keys(currency.rates));
+                    setValues(Object.values(currency.rates));
+                    setUpdateDate(currency.date);
+                    setSourceValue(currency.base);
+                }, 1000);
+            }
+            )
+            .catch(error => {
+                console.error("Nie udało się pobrać danych...", error)
+            })
+    }, []);
 
+    if (!updateDate) {
+        return (<StyledHeader>Pobieranie danych z serwera, proszę czekać...</StyledHeader>)
+    }
     return (
         <>
             <StyledForm
@@ -90,11 +77,11 @@ const Form = () => {
                         as="select"
                         onChange={
                             ({ target }) => {
-                                setCurrencyValue(target.value);
+                                setCurrencyName(target.value);
                             }
                         }
                     >
-                        {rates.map((rate, id) => {
+                        {names.map((rate, id) => {
                             return (
                                 <option
                                     key={id}
