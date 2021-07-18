@@ -8,7 +8,7 @@ const Form = () => {
     const [values, setValues] = useState([]);
     const [plnValue, setPlnValue] = useState("");
     const [userValue, setUserValue] = useState("");
-    const [currencyName, setCurrencyName] = useState(names[0]);
+    const [currencyName, setCurrencyName] = useState("");
 
     const currencyNameIndex = names.findIndex(name => name === currencyName);
     const rate = values[currencyNameIndex];
