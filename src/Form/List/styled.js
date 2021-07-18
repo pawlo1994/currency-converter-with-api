@@ -9,6 +9,7 @@ export const StyledList = styled.section`
     flex-basis: 45%;
 
     @media(max-width: 767px){
+        margin-top: 10px;
         flex-basis: 100%;
     }
 `;
