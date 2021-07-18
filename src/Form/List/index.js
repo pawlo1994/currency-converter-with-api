@@ -1,6 +1,6 @@
 import { StyledHeader, StyledList, StyledParagraph } from "./styled";
 
-const List = ({ plnValue, result, updateDate, sourceValue }) => {
+const List = ({ plnValue, result, updateDate }) => {
     if (!result) {
         return (
             <StyledList>
@@ -12,7 +12,7 @@ const List = ({ plnValue, result, updateDate, sourceValue }) => {
         <StyledList>
             <StyledHeader>Data aktualizacji: {updateDate}</StyledHeader>
             <StyledParagraph>
-                {(+plnValue).toFixed(2)} {sourceValue} = {(+result.value).toFixed(2)} {result.currencyName}
+                {(+plnValue).toFixed(2)} PLN = {(+result.value).toFixed(2)} {result.currencyName}
             </StyledParagraph>
         </StyledList>
     );
