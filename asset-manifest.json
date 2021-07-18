@@ -1,23 +1,23 @@
 {
   "files": {
     "main.css": "/currency-converter-with-api/static/css/main.b14171fb.chunk.css",
-    "main.js": "/currency-converter-with-api/static/js/main.fccd512f.chunk.js",
-    "main.js.map": "/currency-converter-with-api/static/js/main.fccd512f.chunk.js.map",
+    "main.js": "/currency-converter-with-api/static/js/main.dd72be3a.chunk.js",
+    "main.js.map": "/currency-converter-with-api/static/js/main.dd72be3a.chunk.js.map",
     "runtime-main.js": "/currency-converter-with-api/static/js/runtime-main.f4462a27.js",
     "runtime-main.js.map": "/currency-converter-with-api/static/js/runtime-main.f4462a27.js.map",
-    "static/js/2.21ed47be.chunk.js": "/currency-converter-with-api/static/js/2.21ed47be.chunk.js",
-    "static/js/2.21ed47be.chunk.js.map": "/currency-converter-with-api/static/js/2.21ed47be.chunk.js.map",
+    "static/js/2.6d0ca093.chunk.js": "/currency-converter-with-api/static/js/2.6d0ca093.chunk.js",
+    "static/js/2.6d0ca093.chunk.js.map": "/currency-converter-with-api/static/js/2.6d0ca093.chunk.js.map",
     "static/js/3.66b01802.chunk.js": "/currency-converter-with-api/static/js/3.66b01802.chunk.js",
     "static/js/3.66b01802.chunk.js.map": "/currency-converter-with-api/static/js/3.66b01802.chunk.js.map",
     "index.html": "/currency-converter-with-api/index.html",
     "static/css/main.b14171fb.chunk.css.map": "/currency-converter-with-api/static/css/main.b14171fb.chunk.css.map",
-    "static/js/2.21ed47be.chunk.js.LICENSE.txt": "/currency-converter-with-api/static/js/2.21ed47be.chunk.js.LICENSE.txt",
+    "static/js/2.6d0ca093.chunk.js.LICENSE.txt": "/currency-converter-with-api/static/js/2.6d0ca093.chunk.js.LICENSE.txt",
     "static/media/index.css": "/currency-converter-with-api/static/media/Background.c9e00b7b.jpg"
   },
   "entrypoints": [
     "static/js/runtime-main.f4462a27.js",
-    "static/js/2.21ed47be.chunk.js",
+    "static/js/2.6d0ca093.chunk.js",
     "static/css/main.b14171fb.chunk.css",
-    "static/js/main.fccd512f.chunk.js"
+    "static/js/main.dd72be3a.chunk.js"
   ]
 }
