@@ -5,6 +5,7 @@ https://pawlo1994.github.io/currency-converter-with-api
 
 ## Description
 Currency Converter App which gets currency rates from European Central Bank.
+![loading data gif](images/loading_data.gif)
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Used Technologies
@@ -14,6 +15,13 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 4. HTML
 5. Create React App
 
+## How to use
+1. Type your amount into "PLN" field
+![type amount gif](images/type_amount.gif)
+2. Choose target currency from list which is below the "PLN" field
+![choose currency gif](images/choose_currency.gif)
+3. Then, click on "Przelicz" button. Result will be shown od the right (on desktop) or below (on mobiles)
+![calculate result gif](images/calculate_result.gif)
 ## Available Scripts
 
 In the project directory, you can run:
