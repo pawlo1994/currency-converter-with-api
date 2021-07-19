@@ -1,17 +1,17 @@
 import { StyledForm, StyledLabel, StyledInput, StyledField, StyledButton, StyledHeader } from "./styled";
-import { useEffect, useState } from "react";
+import { useState } from "react";
+import { useFetchedData } from "./useFetchedData";
 import List from "./List";
 
 const Form = () => {
-    const [updateDate, setUpdateDate] = useState("");
-    const [names, setNames] = useState([]);
-    const [values, setValues] = useState([]);
+
+    const currencies = useFetchedData();
     const [plnValue, setPlnValue] = useState("");
     const [userValue, setUserValue] = useState("");
-    const [currencyName, setCurrencyName] = useState("");
+    const [currencyName, setCurrencyName] = useState(currencies.names[0]);
 
-    const currencyNameIndex = names.findIndex(name => name === currencyName);
-    const rate = values[currencyNameIndex];
+    const currencyNameIndex = currencies.names.findIndex(name => name === currencyName);
+    const rate = currencies.values[currencyNameIndex];
 
     const [result, setResult] = useState("");
 
@@ -31,24 +31,19 @@ const Form = () => {
         setUserValue("");
     };
 
-    useEffect(() => {
-        fetch("https://api.exchangerate.host/latest?base=PLN")
-            .then(response => response.json())
-            .then(currency => {
-                setTimeout(() => {
-                    setNames(Object.keys(currency.rates));
-                    setValues(Object.values(currency.rates));
-                    setUpdateDate(currency.date);
-                }, 1000);
-            }
-            )
-            .catch(error => {
-                console.error("Nie udało się pobrać danych...", error)
-            })
-    }, []);
-
-    if (!updateDate) {
-        return (<StyledHeader>Pobieranie danych z serwera, proszę czekać...</StyledHeader>)
+    if (currencies.status === "loading") {
+        return (
+            <>
+                <StyledHeader>Proszę czekać, trwa pobieranie danych z serwera</StyledHeader>
+            </>
+        )
+    }
+    if (currencies.status === "failed") {
+        return (
+            <>
+                <StyledHeader>Nie udało się pobrać danych, spróbuj ponownie później</StyledHeader>
+            </>
+        )
     }
     return (
         <>
@@ -79,7 +74,7 @@ const Form = () => {
                             }
                         }
                     >
-                        {names.map((rate, id) => {
+                        {currencies.names.map((rate, id) => {
                             return (
                                 <option
                                     key={id}
@@ -95,7 +90,7 @@ const Form = () => {
             <List
                 plnValue={plnValue}
                 result={result}
-                updateDate={updateDate}
+                updateDate={currencies.updateDate}
             />
         </>
     );
