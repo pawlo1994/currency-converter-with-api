@@ -1,5 +1,5 @@
 import { StyledForm, StyledLabel, StyledInput, StyledField, StyledButton, StyledHeader } from "./styled";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useFetchedData } from "./useFetchedData";
 import List from "./List";
 
@@ -8,10 +8,15 @@ const Form = () => {
     const currencies = useFetchedData();
     const [plnValue, setPlnValue] = useState("");
     const [userValue, setUserValue] = useState("");
-    const [currencyName, setCurrencyName] = useState("AED");
-
+    const [currencyName, setCurrencyName] = useState("");
     const currencyNameIndex = currencies.names.findIndex(name => name === currencyName);
     const rate = currencies.values[currencyNameIndex];
+
+    useEffect(() => {
+        if (currencyNameIndex === -1) {
+            setCurrencyName(currencies.names[currencyNameIndex + 1])
+        }
+    }, [currencies]);
 
     const [result, setResult] = useState("");
 
@@ -74,12 +79,22 @@ const Form = () => {
                             }
                         }
                     >
-                        {currencies.names.map((rate, id) => {
+                        {currencies.names.map((name, id) => {
+                            if (id === 0) {
+                                return (
+                                    <option
+                                        key={id}
+                                        value={name}
+                                        selected>
+                                        {name}
+                                    </option>
+                                )
+                            }
                             return (
                                 <option
                                     key={id}
-                                    value={rate}>
-                                    {rate}
+                                    value={name}>
+                                    {name}
                                 </option>
                             )
                         })}
