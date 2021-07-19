@@ -8,7 +8,7 @@ const Form = () => {
     const currencies = useFetchedData();
     const [plnValue, setPlnValue] = useState("");
     const [userValue, setUserValue] = useState("");
-    const [currencyName, setCurrencyName] = useState(currencies.names[0]);
+    const [currencyName, setCurrencyName] = useState("AED");
 
     const currencyNameIndex = currencies.names.findIndex(name => name === currencyName);
     const rate = currencies.values[currencyNameIndex];
@@ -34,7 +34,7 @@ const Form = () => {
     if (currencies.status === "loading") {
         return (
             <>
-                <StyledHeader>Proszę czekać, trwa pobieranie danych z serwera</StyledHeader>
+                <StyledHeader>Proszę czekać, trwa pobieranie danych z serwera...</StyledHeader>
             </>
         )
     }
