@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 export const useFetchedData = () => {
     const [updateDate, setUpdateDate] = useState("");
@@ -28,7 +28,9 @@ export const useFetchedData = () => {
             })
     };
 
-    setTimeout(getCurrenciesData, 2000);
+    useEffect(() => {
+        setTimeout(getCurrenciesData, 2000);
+    }, []);
 
     return { names, values, updateDate, status };
 };
