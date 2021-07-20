@@ -5,18 +5,24 @@ import List from "./List";
 
 const Form = () => {
 
-    const currencies = useFetchedData();
+    const {
+        names,
+        values,
+        status,
+        updateDate
+    } = useFetchedData();
+
     const [plnValue, setPlnValue] = useState("");
     const [userValue, setUserValue] = useState("");
     const [currencyName, setCurrencyName] = useState("");
-    const currencyNameIndex = currencies.names.findIndex(name => name === currencyName);
-    const rate = currencies.values[currencyNameIndex];
+    const currencyNameIndex = names.findIndex(name => name === currencyName);
+    const rate = values[currencyNameIndex];
 
     useEffect(() => {
         if (currencyNameIndex === -1) {
-            setCurrencyName(currencies.names[currencyNameIndex + 1])
+            setCurrencyName(names => names[currencyNameIndex + 1])
         }
-    }, [currencies]);
+    }, [currencyNameIndex]);
 
     const [result, setResult] = useState("");
 
@@ -36,14 +42,14 @@ const Form = () => {
         setUserValue("");
     };
 
-    if (currencies.status === "loading") {
+    if (status === "loading") {
         return (
             <>
                 <StyledHeader>Proszę czekać, trwa pobieranie danych z serwera...</StyledHeader>
             </>
         )
     }
-    if (currencies.status === "failed") {
+    if (status === "failed") {
         return (
             <>
                 <StyledHeader>Nie udało się pobrać danych, spróbuj ponownie później</StyledHeader>
@@ -79,7 +85,7 @@ const Form = () => {
                             }
                         }
                     >
-                        {currencies.names.map((name, id) => {
+                        {names.map((name, id) => {
                             if (id === 0) {
                                 return (
                                     <option
@@ -105,7 +111,7 @@ const Form = () => {
             <List
                 plnValue={plnValue}
                 result={result}
-                updateDate={currencies.updateDate}
+                updateDate={updateDate}
             />
         </>
     );
