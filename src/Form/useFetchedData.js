@@ -1,13 +1,13 @@
 import { useEffect, useState } from "react";
 
 export const useFetchedData = () => {
-    const [updateDate, setUpdateDate] = useState("");
-    const [names, setNames] = useState([]);
-    const [values, setValues] = useState([]);
-    const [status, setStatus] = useState("loading");
+    const [currenciesData, setCurrenciesData] = useState({
+        status: "loading",
+    });
+    const dataURL = "https://api.exchangerate.host/latest?base=PLN";
 
     const getCurrenciesData = () => {
-        fetch("https://api.exchangerate.host/latest?base=PLN")
+        fetch(dataURL)
             .then(response => {
                 if (!response.ok) {
                     throw new Error(response.statusText);
@@ -16,21 +16,24 @@ export const useFetchedData = () => {
             })
             .then(response => response.json())
             .then(response => {
-                setNames(Object.keys(response.rates));
-                setValues(Object.values(response.rates));
-                setUpdateDate(response.date);
-                setStatus("done");
-            }
-            )
-            .catch(error => {
-                console.error("BŁĄD!!!", error)
-                setStatus("failed");
+                setCurrenciesData({
+                    date: response.date,
+                    names: Object.keys(response.rates),
+                    values: Object.values(response.rates),
+                    status: "done",
+                });
             })
+            .catch(error => {
+                console.error("BŁĄD!!!", error);
+                setCurrenciesData({
+                    status: "failed",
+                })
+            });
     };
 
     useEffect(() => {
         setTimeout(getCurrenciesData, 2000);
     }, []);
 
-    return { names, values, updateDate, status };
+    return currenciesData;
 };
