@@ -9,7 +9,7 @@ const Form = () => {
 
     const [plnValue, setPlnValue] = useState("");
     const [userValue, setUserValue] = useState("");
-    const [currencyName, setCurrencyName] = useState("EUR");
+    const [currencyName, setCurrencyName] = useState("PLNEUR");
 
     const [result, setResult] = useState("");
 
@@ -19,7 +19,7 @@ const Form = () => {
         setResult(
             {
                 value: userValue * rate,
-                currencyName
+                currencyName: currencyName.replace("PLN", "")
             }
         );
     };
@@ -71,7 +71,7 @@ const Form = () => {
                                     <option
                                         key={id}
                                         value={name}>
-                                        {name}
+                                        {name.replace("PLN", "")}
                                     </option>
                                 )
                             })}
