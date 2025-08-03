@@ -1,7 +1,7 @@
 {
   "name": "currency-converter-with-api",
   "version": "0.1.0",
-  "private": true,
+  "private": false,
   "homepage": "https://pawlo1994.github.io/currency-converter-with-api",
   "dependencies": {
     "@testing-library/jest-dom": "^5.13.0",
