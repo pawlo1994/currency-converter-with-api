@@ -4,7 +4,7 @@ export const useFetchedData = () => {
     const [currenciesData, setCurrenciesData] = useState({
         status: "loading",
     });
-    const dataURL = "https://api.exchangerate.host/latest?base=PLN";
+    const dataURL = "https://api.exchangerate.host/live?source=PLN&access_key=7b87135daebe4d4593a1056662bcd10d";
 
     const getCurrenciesData = () => {
         fetch(dataURL)
@@ -18,8 +18,8 @@ export const useFetchedData = () => {
             .then(response => {
                 setCurrenciesData({
                     date: response.date,
-                    names: Object.keys(response.rates),
-                    values: Object.values(response.rates),
+                    names: Object.keys(response.quotes),
+                    values: Object.values(response.quotes),
                     status: "done",
                 });
             })
